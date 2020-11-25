@@ -28,4 +28,12 @@ public class BookController {
     public Book create(@RequestBody Book book){
         return bookRepository.save(book);
     }
+
+    @CrossOrigin
+    @DeleteMapping("/books")
+    public Iterable<Book> delete(@RequestBody Book book){
+        bookRepository.delete(book);
+        Iterable<Book> books = bookRepository.findAll();
+        return books;
+    }
 }
