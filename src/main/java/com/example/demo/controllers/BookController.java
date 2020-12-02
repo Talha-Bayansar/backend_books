@@ -46,10 +46,9 @@ public class BookController {
     }
 
     @CrossOrigin
-    @PutMapping("/books")
-    public Iterable<Book> edit(@RequestBody Book book){
-        Optional<Book> optionalBook = bookRepository.findById(book.getId());
-        logger.info(book.getId() + " " + book.getTitle());
+    @PutMapping("/books/{id}")
+    public Iterable<Book> edit(@PathVariable int id, @RequestBody Book book){
+        Optional<Book> optionalBook = bookRepository.findById(id);
         if(optionalBook.isPresent()){
             Book b = optionalBook.get();
             logger.info(b.getId() + " " + b.getTitle());
