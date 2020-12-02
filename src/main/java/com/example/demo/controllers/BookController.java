@@ -58,6 +58,9 @@ public class BookController {
         Optional<Book> optionalBook = bookRepository.findById(id);
         if(optionalBook.isPresent()){
             bookRepository.delete(optionalBook.get());
+        }else{
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "The book you tried to delete doesn't exist.");
         }
         Iterable<Book> books = bookRepository.findAll();
         return books;
