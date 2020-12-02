@@ -23,8 +23,11 @@ public class BookController {
 
     @CrossOrigin
     @GetMapping("/books")
-    public Iterable<Book> findAll() {
+    public Iterable<Book> findAll(@RequestParam(required = false) String titleKeyWord) {
         Iterable<Book> books = bookRepository.findAll();
+        if(titleKeyWord != null){
+            books = bookRepository.findByTitleContains(titleKeyWord);
+        }
         return books;
     }
 
