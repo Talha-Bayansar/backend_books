@@ -76,6 +76,9 @@ public class BookController {
             b.setSells(book.getSells());
             bookRepository.save(b);
             logger.info(b.getId() + " " + b.getTitle());
+        }else{
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "The book you tried to edit doesn't exist.");
         }
         return bookRepository.findAll();
     }
