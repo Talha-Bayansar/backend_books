@@ -42,7 +42,13 @@ public class BookController {
         if(bookRepository.findByTitle(book.getTitle()).isPresent())
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                     String.format("Book with title %s already exists.", book.getTitle()));
-        return bookRepository.save(book);
+        try {
+            bookRepository.save(book);
+        } catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Server didn't respond correctly.");
+        }
+        return book;
     }
 
     @CrossOrigin
