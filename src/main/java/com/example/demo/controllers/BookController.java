@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.model.Book;
 import com.example.demo.repositories.BookRepository;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class BookController {
     private Logger logger = LoggerFactory.getLogger(BookController.class);
 
     @CrossOrigin
+    @ApiOperation(value = "Find all the books that are stored in the database.")
     @GetMapping("/books")
     public Iterable<Book> findAll(@RequestParam(required = false) String titleKeyWord) {
         Iterable<Book> books = bookRepository.findAll();
@@ -32,12 +34,14 @@ public class BookController {
     }
 
     @CrossOrigin
+    @ApiOperation(value = "Add a new book in the database.")
     @PostMapping("/books")
     public Book create(@RequestBody Book book){
         return bookRepository.save(book);
     }
 
     @CrossOrigin
+    @ApiOperation(value = "Delete a book from the database.")
     @DeleteMapping("/books/{id}")
     public Iterable<Book> delete(@PathVariable int id){
         Optional<Book> optionalBook = bookRepository.findById(id);
@@ -49,6 +53,7 @@ public class BookController {
     }
 
     @CrossOrigin
+    @ApiOperation(value = "Edit an existing book from the database.")
     @PutMapping("/books/{id}")
     public Iterable<Book> edit(@PathVariable int id, @RequestBody Book book){
         Optional<Book> optionalBook = bookRepository.findById(id);
