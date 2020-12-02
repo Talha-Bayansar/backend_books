@@ -6,7 +6,9 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,6 +39,9 @@ public class BookController {
     @ApiOperation(value = "Add a new book in the database.")
     @PostMapping("/books")
     public Book create(@RequestBody Book book){
+        if(bookRepository.findByTitle(book.getTitle()).isPresent())
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    String.format("Book with title %s already exists.", book.getTitle()));
         return bookRepository.save(book);
     }
 

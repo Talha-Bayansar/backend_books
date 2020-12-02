@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface BookRepository extends CrudRepository<Book, Integer> {
     Iterable<Book> findByTitleContains(String subString);
+    Optional<Book> findByTitle(String title);
 }
