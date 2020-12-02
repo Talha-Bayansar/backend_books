@@ -35,9 +35,12 @@ public class BookController {
     }
 
     @CrossOrigin
-    @DeleteMapping("/books")
-    public Iterable<Book> delete(@RequestBody Book book){
-        bookRepository.delete(book);
+    @DeleteMapping("/books/{id}")
+    public Iterable<Book> delete(@PathVariable int id){
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        if(optionalBook.isPresent()){
+            bookRepository.delete(optionalBook.get());
+        }
         Iterable<Book> books = bookRepository.findAll();
         return books;
     }
