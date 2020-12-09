@@ -11,7 +11,7 @@ public class Book {
     @SequenceGenerator(name = "book_generator", sequenceName = "book_seq", initialValue = 0, allocationSize = 1)
     private Integer id;
     @NotBlank(message = "Book title should not be blank.")
-    @NotNull
+    @NotNull(message = "Book title should not be null.")
     private String title;
     private String author;
     private Integer sells;
