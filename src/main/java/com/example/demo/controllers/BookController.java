@@ -70,14 +70,14 @@ public class BookController {
     @CrossOrigin
     @ApiOperation(value = "Edit an existing book from the database.")
     @PutMapping("/books/{id}")
-    public Iterable<Book> edit(@PathVariable int id, @RequestBody Book book){
+    public Iterable<Book> edit(@PathVariable int id, @Valid @RequestBody Book book){
         Optional<Book> optionalBook = bookRepository.findById(id);
         if(optionalBook.isPresent()){
             Book b = optionalBook.get();
             logger.info(b.getId() + " " + b.getTitle());
             b.setTitle(book.getTitle());
-            b.setAuthor(book.getTitle());
-            b.setSells(book.getSells());
+            b.setAuthor(book.getAuthor());
+            b.setPrice(book.getPrice());
             bookRepository.save(b);
             logger.info(b.getId() + " " + b.getTitle());
         }else{

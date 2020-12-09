@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -10,11 +12,18 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_generator")
     @SequenceGenerator(name = "book_generator", sequenceName = "book_seq", initialValue = 0, allocationSize = 1)
     private Integer id;
+
     @NotBlank(message = "Book title should not be blank.")
     @NotNull(message = "Book title should not be null.")
     private String title;
+
+    @NotBlank(message = "Book author should not be blank.")
+    @NotNull(message = "Book author should not be null.")
     private String author;
-    private Integer sells;
+
+    @Min(value = 1, message = "Book price should have a minimum price of 1.")
+    @Max(value = 50, message = "Book price should have a maximum price of 50.")
+    private Integer price;
 
     public Book() {
     }
@@ -43,11 +52,11 @@ public class Book {
         this.author = author;
     }
 
-    public Integer getSells() {
-        return sells;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setSells(Integer sells) {
-        this.sells = sells;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }
