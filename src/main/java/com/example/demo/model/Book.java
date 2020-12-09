@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Book {
@@ -8,6 +10,8 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_generator")
     @SequenceGenerator(name = "book_generator", sequenceName = "book_seq", initialValue = 0, allocationSize = 1)
     private Integer id;
+    @NotBlank(message = "Book title should not be blank.")
+    @NotNull
     private String title;
     private String author;
     private Integer sells;

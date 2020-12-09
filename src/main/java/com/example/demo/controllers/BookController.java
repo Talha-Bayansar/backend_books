@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +39,7 @@ public class BookController {
     @CrossOrigin
     @ApiOperation(value = "Add a new book in the database.")
     @PostMapping("/books")
-    public Book create(@RequestBody Book book){
+    public Book create(@Valid @RequestBody Book book){
         if(bookRepository.findByTitle(book.getTitle()).isPresent())
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                     String.format("Book with title %s already exists.", book.getTitle()));
