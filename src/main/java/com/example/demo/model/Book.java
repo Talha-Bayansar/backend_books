@@ -21,8 +21,8 @@ public class Book {
     @NotNull(message = "Book author should not be null.")
     private String author;
 
-    @Min(value = 1, message = "Book price should have a minimum price of 1.")
-    @Max(value = 50, message = "Book price should have a maximum price of 50.")
+    @Min(value = 0, message = "Book price should have a minimum price of 1.")
+    @Max(value = 2000, message = "Book price should have a maximum price of 50.")
     private Integer priceInEuro;
 
     public Book() {
