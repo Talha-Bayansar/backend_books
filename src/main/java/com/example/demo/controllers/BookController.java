@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static java.lang.Thread.sleep;
@@ -77,7 +75,7 @@ public class BookController {
             logger.info(b.getId() + " " + b.getTitle());
             b.setTitle(book.getTitle());
             b.setAuthor(book.getAuthor());
-            b.setPrice(book.getPrice());
+            b.setPriceInEuro(book.getPriceInEuro());
             bookRepository.save(b);
             logger.info(b.getId() + " " + b.getTitle());
         }else{

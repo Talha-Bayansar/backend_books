@@ -23,7 +23,7 @@ public class Book {
 
     @Min(value = 1, message = "Book price should have a minimum price of 1.")
     @Max(value = 50, message = "Book price should have a maximum price of 50.")
-    private Integer price;
+    private Integer priceInEuro;
 
     public Book() {
     }
@@ -52,11 +52,11 @@ public class Book {
         this.author = author;
     }
 
-    public Integer getPrice() {
-        return price;
+    public Integer getPriceInEuro() {
+        return priceInEuro;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setPriceInEuro(Integer price) {
+        this.priceInEuro = price;
     }
 }
