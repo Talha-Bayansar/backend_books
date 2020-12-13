@@ -1,11 +1,16 @@
 package com.example.demo.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class Book {
     @Id
@@ -25,38 +30,4 @@ public class Book {
     @Max(value = 2000, message = "Book price should have a maximum price of 50.")
     private Integer priceInEuro;
 
-    public Book() {
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public Integer getPriceInEuro() {
-        return priceInEuro;
-    }
-
-    public void setPriceInEuro(Integer price) {
-        this.priceInEuro = price;
-    }
 }
