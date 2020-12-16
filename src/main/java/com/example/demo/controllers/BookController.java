@@ -12,7 +12,6 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 import java.util.Optional;
 
-
 @Slf4j
 @RestController
 public class BookController {
@@ -21,7 +20,6 @@ public class BookController {
     private BookRepository bookRepository;
 
 
-    @CrossOrigin
     @ApiOperation(value = "Find all the books that are stored in the database.")
     @GetMapping("/books")
     public Iterable<Book> findAll(@RequestParam(required = false) String titleKeyWord) {
@@ -33,7 +31,6 @@ public class BookController {
         return books;
     }
 
-    @CrossOrigin
     @ApiOperation(value = "Add a new book in the database.")
     @PostMapping("/books")
     public Book create(@Valid @RequestBody Book book){
@@ -50,7 +47,6 @@ public class BookController {
         return book;
     }
 
-    @CrossOrigin
     @ApiOperation(value = "Delete a book from the database.")
     @DeleteMapping("/books/{id}")
     public Iterable<Book> delete(@PathVariable int id){
@@ -66,7 +62,6 @@ public class BookController {
         return books;
     }
 
-    @CrossOrigin
     @ApiOperation(value = "Edit an existing book from the database.")
     @PutMapping("/books/{id}")
     public Iterable<Book> edit(@PathVariable int id, @Valid @RequestBody Book book){
