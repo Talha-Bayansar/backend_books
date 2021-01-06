@@ -26,3 +26,8 @@ insert into genre
 (ID, NAME)
 values
 (nextval('genre_seq'), 'Roman');
+
+insert into user
+(ID, USERNAME, PASSWORD)
+values
+(nextval('user_seq'), 'Talha', '$2y$12$zDKNuSz4mdEz1zmXNKgWUOFs/z5ax7SyT/t7MSQ19VweyFo4qZbdO');
