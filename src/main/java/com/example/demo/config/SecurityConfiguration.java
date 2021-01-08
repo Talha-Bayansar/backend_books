@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Value("${url.client}")
-    private String urlClient;
+    private String[] urlClient;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Collections.singletonList(urlClient));
+        configuration.setAllowedOrigins(Arrays.asList(urlClient));
         configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "PUT", "POST", "DELETE"));
 
         // setAllowedHeaders is important! Without it, OPTIONS preflight request
