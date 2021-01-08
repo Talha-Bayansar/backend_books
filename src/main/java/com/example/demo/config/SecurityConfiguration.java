@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -26,13 +27,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private CsrfTokenRepository csrfTokenRepository;
+
     @Value("${url.client}")
     private String[] urlClient;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors();
-        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+        http.csrf().csrfTokenRepository(csrfTokenRepository);
         http.authorizeRequests().anyRequest().authenticated();
         http.httpBasic();
         //http.formLogin();
@@ -46,7 +50,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // setAllowedHeaders is important! Without it, OPTIONS preflight request
         // will fail with 403 Invalid CORS request
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "content-type", "x-xsrf-token", "X-Requested-With"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "content-type", "x-xsrf-token", "X-Requested-With",
+                CrossDomainCsrfTokenRepository.XSRF_HEADER_NAME));
+        configuration.setExposedHeaders(Collections.singletonList(CrossDomainCsrfTokenRepository.XSRF_HEADER_NAME));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -68,6 +74,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    CsrfTokenRepository csrfTokenRepository(){
+        return new CrossDomainCsrfTokenRepository();
     }
 }
 
