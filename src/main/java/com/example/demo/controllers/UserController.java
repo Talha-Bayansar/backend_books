@@ -27,13 +27,9 @@ public class UserController {
         log.info("authenticate");
         try{
             log.info(principal.getName());
-            AuthenticationBean bean = new AuthenticationBean(principal.getName());
-            if(bean.getUsername() != null){
+//            AuthenticationBean bean = new AuthenticationBean(principal.getName());
                 Optional<User> optionalUser = userRepository.findByUsername(principal.getName());
                 return optionalUser.get();
-            }else{
-                return null;
-            }
         }
         catch (Exception e){
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to login");
